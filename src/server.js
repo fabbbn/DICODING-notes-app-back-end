@@ -1,23 +1,22 @@
 const Hapi = require('@hapi/hapi');
 
 const routes = require('./routes');
-const notes = require("./notes");
 
 const init = async () => {
-    const server = Hapi.server({
-        port: 5000,
-        host: "localhost",
-        routes: {
-            cors: {
-                origin: ['*'],
-            },
-        },
-    });
+  const server = Hapi.server({
+    port: 5000,
+    host: process.env.NODE_ENV !== 'production' ? 'localhost' : '0.0.0.0',
+    routes: {
+      cors: {
+        origin: ['*'],
+      },
+    },
+  });
 
-    server.route(routes);
+  server.route(routes);
 
-    await server.start();
-    console.log(`Server berjalan pada ${server.info.uri}`);
+  await server.start();
+  process.stdout.write(`Server berjalan pada ${server.info.uri}`);
 };
 
 // emmiter unhandled exception, close the program
