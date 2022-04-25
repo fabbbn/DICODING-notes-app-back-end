@@ -29,7 +29,9 @@ const addNoteHandler = (request, h) => {
         noteId: id,
       },
     });
-    response.code(201);
+    response
+      .code(201)
+      .type('application/json');
     return response;
   }
 
