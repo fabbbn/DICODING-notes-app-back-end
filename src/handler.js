@@ -51,13 +51,13 @@ const getAllNotesHandler = () => ({
 const getNoteByIdHandler = (request, h) => {
   const { id } = request.params;
 
-  const note = notes.filter((n) => n.id === id)[0];
+  const index = notes.findIndex((n) => n.id === id);
 
-  if (note !== 'undefined') {
+  if (index !== -1) {
     return {
       status: 'success',
       data: {
-        note,
+        note: { ...notes[index] },
       },
     };
   }
